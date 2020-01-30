@@ -27,7 +27,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int value1, int value2) {
-        return -1;
+        if (value1 > value2){
+            return value1;
+        } else {
+            return value2;
+        }
     }
 
     /**
@@ -36,7 +40,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int[] values) {
-        return -1;
+        int maxValue = values[0];
+        for (int value : values) {
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
     }
 
     /**
@@ -45,7 +55,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int sum(int[] values) {
-        return -1;
+        int sumValues = 0;
+        for (int value : values) {
+            sumValues += value;
+        }
+        return sumValues;
     }
 
     /**
@@ -54,8 +68,21 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] getEvenDigits(int[] values) {
-        return new int[]{};
-    }
+        int numberOfEvenDigits = 0;
+        for (int value : values) {
+            if (value % 2 == 0) {
+                numberOfEvenDigits++;
+            }
+        }
+            int[] newArray = new int[numberOfEvenDigits];
+            for (int j = 0, count = 0; j < values.length; j++) {
+                if (values[j] % 2 == 0) {
+                    newArray[count] = values[j];
+                    count++;
+                }
+            }
+            return newArray;
+        }
 
     /**
      * Метод считает факториал из заданного числа.
@@ -64,7 +91,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFactorial(int initialVal) {
-        return -1L;
+        long result = 1;
+        for ( int i =1; i <= initialVal; i++ ){
+            result *= i;
+        }
+        return result;
     }
 
     /**
@@ -79,7 +110,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFibonacci(int number) {
-        return -1L;
+        if (number == 0) {
+            return 0;
+        } else if (number == 1) {
+            return 1;
+        } else {
+            return calcFibonacci(number - 1) + calcFibonacci(number - 2);
+        }
     }
 
     /**
@@ -88,7 +125,20 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] sort(int[] values) {
-        return new int[]{};
+        for (int i = 0; i < values.length; i++) {
+            int min = values[i];
+            int minId = i;
+            for (int j = i+1; j < values.length; j++) {
+                if (values[j] < min) {
+                    min = values[j];
+                    minId = j;
+                }
+            }
+            int temp = values[i];
+            values[i] = min;
+            values[minId] = temp;
+        }
+        return values;
     }
 
     /**
@@ -99,7 +149,12 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public boolean isPrimary(int number) {
-        return false;
+        for ( int i = 2; i < number; i++ ) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -109,6 +164,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] reverseArray(int[] values) {
-        return new int[]{};
+        int size = values.length;
+        int[] reverse = new int[size];
+        for ( int i = 0;  i < size; i++ ){
+            reverse[i] = values[size-i-1];
+        }
+        return reverse;
     }
 }
